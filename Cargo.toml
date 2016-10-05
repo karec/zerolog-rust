@@ -1,0 +1,9 @@
+[package]
+name = "zerolog"
+version = "0.1.0"
+authors = ["karec <manu.valette@gmail.com>"]
+
+[dependencies]
+
+[dependencies.zmq]
+git = "https://github.com/erickt/rust-zmq.git"
