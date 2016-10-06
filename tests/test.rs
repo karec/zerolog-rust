@@ -3,9 +3,13 @@ extern crate zmq;
 
 use zerolog::utils::zmqdevice::SimpleDevice;
 
-fn main() {
-    println!("Hello, world!");
+#[test]
+fn basic_test() {
+    assert!(1 == 1);
+}
 
+#[test]
+fn can_create_simple_device() {
 
     let mut ctx = zmq::Context::new();
 
@@ -14,26 +18,21 @@ fn main() {
         Err(e) => { panic!(e) }
     };
 
-    match in_socket.set_subscribe("".as_bytes()) {
+    match in_socket.bind("tcp://*:0") {
         Ok(()) => (),
         Err(e) => panic!(e)
     }
 
-    match in_socket.bind("tcp://*:9001") {
-        Ok(()) => (),
-        Err(e) => panic!(e)
-    }
-
-    let mut out_socket = match ctx.socket(zmq::PUB) {
+    let mut out_socket = match ctx.socket(zmq::REQ) {
         Ok(out_socket) => { out_socket },
         Err(e) => { panic!(e) }
     };
 
-    match out_socket.bind("tcp://*:9002") {
+    match out_socket.bind("tcp://*:0") {
         Ok(()) => (),
         Err(e) => panic!(e)
     }
 
-    let mut test: SimpleDevice = SimpleDevice::new(in_socket, out_socket);
-    test.run()
+    let device = SimpleDevice::new(in_socket, out_socket);
 }
+

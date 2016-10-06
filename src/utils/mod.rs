@@ -1,1 +1,1 @@
-pub mod zmq;
+pub mod zmqdevice;
