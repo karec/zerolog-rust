@@ -1,3 +1,6 @@
+//! # Zerolog library
+//!
+//! Contains all functions used by zerolog to start devices
 extern crate zmq;
 
 pub mod utils;
@@ -6,6 +9,15 @@ pub mod utils;
 use utils::zmqdevice::SimpleDevice;
 
 
+/// Create sockets, binds them and call run method on `SimpleDevice`
+///
+/// Note that `run` method on `SimpleDevice` is blocking, so calling `start_forwarder`
+/// will block
+///
+/// # Example
+/// ```
+/// start_forwarder("tcp://*:9001", "tcp://*:9002", "mytopic");
+/// ```
 pub fn start_forwarder(in_address: &str, out_address: &str, topic: &str) {
     let mut ctx = zmq::Context::new();
 

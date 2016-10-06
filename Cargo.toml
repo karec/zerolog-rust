@@ -7,3 +7,8 @@ authors = ["karec <manu.valette@gmail.com>"]
 
 [dependencies.zmq]
 git = "https://github.com/erickt/rust-zmq.git"
+
+[[bin]]
+doc = false
+name = "zerolog"
+path = "src/main.rs"
