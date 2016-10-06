@@ -16,12 +16,12 @@ fn main() {
 
     match in_socket.set_subscribe("".as_bytes()) {
         Ok(()) => (),
-        Err(e) => panic!(e)
+        Err(e) => panic!("Cannot subscribe to channel : {:?}", e)
     }
 
     match in_socket.bind("tcp://*:9001") {
         Ok(()) => (),
-        Err(e) => panic!(e)
+        Err(e) => panic!("Cannot bind in socket ! Error is {:?}", e)
     }
 
     let mut out_socket = match ctx.socket(zmq::PUB) {
@@ -31,7 +31,7 @@ fn main() {
 
     match out_socket.bind("tcp://*:9002") {
         Ok(()) => (),
-        Err(e) => panic!(e)
+        Err(e) => panic!("Cannot bind out socket ! Error is {:?}", e)
     }
 
     let mut test: SimpleDevice = SimpleDevice::new(in_socket, out_socket);
